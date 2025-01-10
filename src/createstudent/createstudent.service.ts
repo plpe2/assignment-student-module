@@ -47,5 +47,16 @@ export class CreatestudentService {
         return await this.createstudentRepository.save(student);
     }
     
+    async delete(id: number) {
+        // Fetch the student by id
+        const student = await this.createstudentRepository.findOne({ where: { id } });
     
+        // Handle the case where the student is not found
+        if (!student) {
+            throw new Error(`Student with ID ${id} not found`);
+        }
+    
+        // Save the updated student entity
+        return await this.createstudentRepository.remove(student);
+    }
 }
