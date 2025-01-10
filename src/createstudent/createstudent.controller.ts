@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CreatestudentService } from './createstudent.service';
 import { CreatestudentDto } from './dtos/create-student.dto';
 
@@ -25,5 +25,8 @@ export class CreatestudentController {
         return await this.createstudentsService.findOneById(studentId);
     }
 
-
+    @Put(':id')
+    update(@Param('id') id: number , @Body() dto: CreatestudentDto){
+        return this.createstudentsService.update(id, dto);
+    }
 }
