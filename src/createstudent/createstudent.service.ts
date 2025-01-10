@@ -30,4 +30,22 @@ export class CreatestudentService {
             throw new Error(`Failed to retrieve student: ${error.message}`);
         }
     }
+
+    async update(id: number, dto: CreatestudentDto) {
+        // Fetch the student by id
+        const student = await this.createstudentRepository.findOne({ where: { id } });
+    
+        // Handle the case where the student is not found
+        if (!student) {
+            throw new Error(`Student with ID ${id} not found`);
+        }
+    
+        // Merge the provided DTO into the existing student entity
+        Object.assign(student, dto);
+    
+        // Save the updated student entity
+        return await this.createstudentRepository.save(student);
+    }
+    
+    
 }
