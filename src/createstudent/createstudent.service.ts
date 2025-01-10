@@ -14,4 +14,20 @@ export class CreatestudentService {
 
         return await this.createstudentRepository.save(student);
     }
+
+    async findMany(){
+        return this.createstudentRepository.find();
+    }
+
+    async findOneById(id: number) {
+        try {
+            const student = await this.createstudentRepository.findOne({ where: { id } });
+            if (!student) {
+                throw new Error(`Student with ID ${id} not found`);
+            }
+            return student;
+        } catch (error) {
+            throw new Error(`Failed to retrieve student: ${error.message}`);
+        }
+    }
 }

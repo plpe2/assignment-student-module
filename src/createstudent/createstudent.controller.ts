@@ -11,4 +11,19 @@ export class CreatestudentController {
         return this.createstudentsService.create(dto);
     }
 
+    @Get()
+    async findMany() {
+        return await this.createstudentsService.findMany();
+    }
+
+    @Get(':id')
+    async findOne(@Param('id') id: string) {
+        const studentId = parseInt(id, 10); // Convert the `id` parameter to a number
+        if (isNaN(studentId)) {
+            throw new Error('Invalid ID format'); // Optionally handle invalid IDs
+        }
+        return await this.createstudentsService.findOneById(studentId);
+    }
+
+
 }
